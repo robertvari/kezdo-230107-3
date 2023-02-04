@@ -38,6 +38,8 @@ class Deck:
             ["Jack", 10],
             ["Ace", 11]
         ]
+
+        names = ["Heart", "Club", "Diamond", "Spade"]
         
     @property
     def cards(self):
