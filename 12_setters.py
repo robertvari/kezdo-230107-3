@@ -16,7 +16,7 @@ class Dice:
         return self.__sides
 
     def set_sides(self, new_sides):
-        assert isinstance(new_sides, int), "Sides must be of type int"
+        assert isinstance(new_sides, int), "Sides must be of type int!"
         self.__check_sides(new_sides)
 
         self.__sides = new_sides
@@ -39,4 +39,8 @@ class Dice:
         return f"Sides: {self.__sides} Color: {self.__color}"
 
 dice6 = Dice(6, "green")
+print(dice6)
+dice6.set_sides(10)
+print(dice6)
+dice6.set_color("blue")
 print(dice6)
