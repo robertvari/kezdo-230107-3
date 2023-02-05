@@ -2,14 +2,14 @@ import random
 
 class Player_Base:
     def __init__(self):
-        self.__name = None
+        self._name = None
         self.__credits = 0
         self.__hand = []
         self.__in_game = True
     
     def create(self):
         self.__credits = random.randint(10, 100)
-        self.__name = self.__get_random_name()
+        self._name = self.__get_random_name()
 
     def __get_random_name(self):
         first_names = ["Marnie", "Johnathan", "Mahnoor", "Hassan", "Alissa", "Millie", "Qasim", "Damon", "Shreya", "Carly"]
@@ -21,11 +21,14 @@ class Player_Base:
         return self.__credits
 
     def __str__(self) -> str:
-        return str(self.__name)
+        return str(self._name)
 
 
 class Player(Player_Base):
-    pass
+    def create(self): # method override
+        super().create()
+        # self._name = input("What is your name?")
+        self._name = "Robert Vari"
 
 
 class AIPlayer(Player_Base):
@@ -33,17 +36,4 @@ class AIPlayer(Player_Base):
 
 
 if __name__ == "__main__":
-    player = Player()
-    ai_player1 = AIPlayer()
-    ai_player2 = AIPlayer()
-    ai_player3 = AIPlayer()
-
-    player.create()
-    ai_player1.create()
-    ai_player2.create()
-    ai_player3.create()
-
-    print(player, player.credits)
-    print(ai_player1, ai_player1.credits)
-    print(ai_player2, ai_player2.credits)
-    print(ai_player3, ai_player3.credits)
+    ai_player = AIPlayer()
