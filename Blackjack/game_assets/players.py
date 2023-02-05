@@ -34,10 +34,16 @@ class AIPlayer(Player_Base):
 
 if __name__ == "__main__":
     player = Player()
-    ai_player = AIPlayer()
+    ai_player1 = AIPlayer()
+    ai_player2 = AIPlayer()
+    ai_player3 = AIPlayer()
 
     player.create()
-    ai_player.create()
+    ai_player1.create()
+    ai_player2.create()
+    ai_player3.create()
 
     print(player, player.credits)
-    print(ai_player, ai_player.credits)
+    print(ai_player1, ai_player1.credits)
+    print(ai_player2, ai_player2.credits)
+    print(ai_player3, ai_player3.credits)
