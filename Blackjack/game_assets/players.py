@@ -12,6 +12,7 @@ class Player_Base:
         self._name = self.__get_random_name()
 
     def start_hand(self, deck):
+        print(f"{self._name} draw start hand.")
         self._hand.clear()
         self._hand.append(deck.draw())
         self._hand.append(deck.draw())
@@ -67,6 +68,8 @@ class Player_Base:
     def __str__(self) -> str:
         return str(self._name)
 
+    def __repr__(self) -> str:
+        return str(self._name)
 
 class Player(Player_Base):
     def create(self): # method override
@@ -99,10 +102,20 @@ class AIPlayer(Player_Base):
 
 if __name__ == "__main__":
     from cards import Deck
+    deck = Deck()
 
     player = Player()
     player.create()
 
-    deck = Deck()
+    ai_player = AIPlayer()
+    ai_player.create()
+
     player.start_hand(deck)
     player.draw_card(deck)
+
+    ai_player.start_hand(deck)
+    ai_player.draw_card(deck)
+
+    print("-"*50, "Game Results", "-"*50)
+    print(player, player.hand, player.hand_value)
+    print(ai_player, ai_player.hand, ai_player.hand_value)
