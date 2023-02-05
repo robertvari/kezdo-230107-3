@@ -33,11 +33,13 @@ class Player_Base:
 
     @property
     def hand_value(self):
-        hand_value = 0
-        for card in self.__hand:
-            hand_value += card.value
+        # hand_value = 0
+        # for card in self.__hand:
+        #     hand_value += card.value
 
-        return hand_value
+        # return hand_value
+
+        return sum([card.value for card in self.__hand])
 
     def __str__(self) -> str:
         return str(self._name)
