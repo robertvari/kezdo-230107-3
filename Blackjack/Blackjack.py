@@ -1,4 +1,4 @@
-import os
+import os, time
 from game_assets.cards import Deck
 from game_assets.players import AIPlayer, Player
 
@@ -36,15 +36,21 @@ class Blackjack:
             print("-"*50)
             player.draw_card(self.__deck)
 
+        time.sleep(1)
         self.__get_winner()
 
     def __get_winner(self):
+        self.__clear_screen()
         winner_list = [player for player in self.__players if player.hand_value <= 21]
 
         if winner_list:
             sorted_winner_list = sorted(winner_list, key=lambda player: player.hand_value)
             winner = sorted_winner_list[-1]
-            print(f"The winner is {winner}")
+            print(f"The winner is {winner}. Hand value: {winner.hand_value}")
+
+            print("-"*50)
+            for player in sorted_winner_list:
+                player.reveal_hand()
         else:
             print("House wins!")
         

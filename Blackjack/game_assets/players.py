@@ -14,19 +14,18 @@ class Player_Base:
     def start_hand(self, deck):
         print(f"{self._name} draw start hand.")
         self._hand.clear()
+        self._in_game = True
+
         self._hand.append(deck.draw())
         self._hand.append(deck.draw())
 
     def draw_card(self, deck):
         print(f"{self._name} start his/her turn.")
-        time.sleep(2)
+        time.sleep(1)
 
         while self._in_game:
-            # TODO check hand value
+            # check hand value
             hand_value = self.hand_value
-            print(f"Cards: {self.hand}")
-            print(f"Hand value: {hand_value}")
-            time.sleep(2)
 
             if hand_value < 18:
                 # call deck.draw()
@@ -36,7 +35,6 @@ class Player_Base:
                 if hand_value > 10 and new_card.value == 11:
                     new_card.change_value()
 
-                print(f"New card: {new_card}")
                 self._hand.append(new_card)
             else:
                 print(f"{self._name} finishes his/her turn")
@@ -45,6 +43,9 @@ class Player_Base:
     @property
     def hand(self):
         return self._hand
+
+    def reveal_hand(self):
+        print(f"{self._name} hand: {self.hand}. Hand value: {self.hand_value}")
 
     def __get_random_name(self):
         first_names = ["Marnie", "Johnathan", "Mahnoor", "Hassan", "Alissa", "Millie", "Qasim", "Damon", "Shreya", "Carly"]
