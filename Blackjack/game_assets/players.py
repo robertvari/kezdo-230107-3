@@ -20,6 +20,9 @@ class Player_Base:
         self.__credits -= value
         return value
 
+    def reward(self, value):
+        self.__credits += value
+
     def start_hand(self, deck):
         print(f"{self._name} draw start hand.")
         self._hand.clear()
