@@ -31,6 +31,9 @@ class Player_Base:
         self._hand.append(deck.draw())
         self._hand.append(deck.draw())
 
+    def has_credits(self, value):
+        return self.__credits >= value
+
     def draw_card(self, deck):
         print(f"{self._name} start his/her turn.")
         time.sleep(1)

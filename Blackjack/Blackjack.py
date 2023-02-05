@@ -9,17 +9,19 @@ class Blackjack:
 
         self.__deck = Deck()
         self.__players = []
+
+        # create player and store it as an attribute of Blackjack
+        self.__player = Player()
+        self.__player.create()
+        self.__players.append(self.__player)
+
         self.__create_players()
         self.__bet = 0
+        self.__min_bet = 10
 
         self.__start_round()
 
     def __create_players(self):
-        player = Player()
-        player.create()
-
-        self.__players.append(player)
-
         for _ in range(3):
             ai_player = AIPlayer()
             ai_player.create()
@@ -29,21 +31,17 @@ class Blackjack:
         self.__clear_screen()
         self.__deck.create()
 
-        players_cant_play = []
-
-        # start player hands and get credits from players
-        for player in self.__players:
-            player_bet = player.give_bet(10)
-            if not player_bet:
-                players_cant_play.append(player)
-                continue
-
-            player.start_hand(self.__deck)
-            self.__bet += player_bet
+        players_cant_play = [player for player in self.__players if not player.has_credits(self.__min_bet)]
 
         # remove players who couldn't give bet
         for player in players_cant_play:
+            print(f"{player} losts his/her all credits :(")
             self.__players.remove(player)
+
+        # start player hands and get credits from players
+        for player in self.__players:
+            player.start_hand(self.__deck)
+            self.__bet += player.give_bet(self.__min_bet)
 
         # start round for players
         for player in self.__players:
@@ -76,11 +74,15 @@ class Blackjack:
     def __ask_new_round(self):
         self.__clear_screen()
 
-        player_input = input("Do you want to play again? (y/n)")
-        if player_input == "y":
-            self.__start_round()
+        if self.__player.has_credits(self.__min_bet):
+            player_input = input("Do you want to play again? (y/n)")
+            if player_input == "y":
+                self.__start_round()
+            else:
+                print("Maybe next time... Bye!")
+                exit()
         else:
-            print("Maybe next time... Bye!")
+            print("You lost all your credits... Maybe next time :(")
             exit()
 
     def __intro(self):
