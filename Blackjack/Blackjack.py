@@ -10,6 +10,7 @@ class Blackjack:
         self.__deck = Deck()
         self.__players = []
         self.__create_players()
+        self.__bet = 0
 
         self.__start_round()
 
@@ -26,12 +27,25 @@ class Blackjack:
 
     def __start_round(self):
         self.__clear_screen()
-
         self.__deck.create()
 
-        for player in self.__players:
-            player.start_hand(self.__deck)
+        players_cant_play = []
 
+        # start player hands and get credits from players
+        for player in self.__players:
+            player_bet = player.give_bet(10)
+            if not player_bet:
+                players_cant_play.append(player)
+                continue
+
+            player.start_hand(self.__deck)
+            self.__bet += player_bet
+
+        # remove players who couldn't give bet
+        for player in players_cant_play:
+            self.__players.remove(player)
+
+        # start round for players
         for player in self.__players:
             print("-"*50)
             player.draw_card(self.__deck)
@@ -47,6 +61,8 @@ class Blackjack:
             sorted_winner_list = sorted(winner_list, key=lambda player: player.hand_value)
             winner = sorted_winner_list[-1]
             print(f"The winner is {winner}. Hand value: {winner.hand_value}")
+            print(f"{winner} wins {self.__bet} credits")
+            winner.reward(self.__bet)
 
             print("-"*50)
             for player in sorted_winner_list:

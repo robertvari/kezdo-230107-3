@@ -8,8 +8,17 @@ class Player_Base:
         self._in_game = True
     
     def create(self):
-        self.__credits = random.randint(10, 100)
+        self.__credits = random.randint(1, 20)
         self._name = self.__get_random_name()
+
+    def give_bet(self, value):
+        if value > self.__credits:
+            print(f"{self._name} hans no more credits to play :(")
+            self._in_game = False
+            return
+        
+        self.__credits -= value
+        return value
 
     def start_hand(self, deck):
         print(f"{self._name} draw start hand.")
