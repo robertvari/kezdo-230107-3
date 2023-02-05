@@ -1,4 +1,4 @@
-import random
+import random, time
 
 class Player_Base:
     def __init__(self):
@@ -12,11 +12,24 @@ class Player_Base:
         self._name = self.__get_random_name()
 
     def draw_card(self, deck):
-        # call deck.draw()
-        new_card = deck.draw()
-        
-        # append new card to self.__hand
-        self.__hand.append(new_card)
+        print(f"{self._name} start his/her turn.")
+        time.sleep(2)
+
+        while self.__in_game:
+            # TODO check hand value
+            hand_value = self.hand_value
+            print(f"Cards: {self.hand}")
+            print(f"Hand value: {hand_value}")
+            time.sleep(2)
+
+            if hand_value < 18:
+                # call deck.draw()
+                new_card = deck.draw()
+                print(f"New card: {new_card}")
+                self.__hand.append(new_card)
+            else:
+                print(f"{self._name} finishes his/her turn")
+                self.__in_game = False
     
     @property
     def hand(self):
@@ -60,9 +73,8 @@ if __name__ == "__main__":
     from cards import Deck
 
     ai_player = AIPlayer()
+    ai_player.create()
+    
     deck = Deck()
-
-    for _ in range(10):
-        ai_player.draw_card(deck)
-        print(ai_player.hand)
-        print(ai_player.hand_value)
+    ai_player.draw_card(deck)
+    print(ai_player, ai_player.hand, ai_player.hand_value)
