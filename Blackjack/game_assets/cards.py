@@ -51,7 +51,11 @@ class Deck:
         random.shuffle(self.__cards)
 
     def draw(self):
-        print("TODO draw a card")
+        if len(self.__cards) == 0:
+            print("There is no cards left in the deck. Create a new deck first!")
+            return
+        
+        return self.__cards.pop(0)
 
     @property
     def cards(self):
@@ -63,4 +67,8 @@ class Deck:
 
 if __name__ == "__main__":
     deck = Deck()
-    deck.draw()
+
+    for _ in range(60):
+        my_card = deck.draw()
+        print(my_card)
+        print(deck.card_number)
